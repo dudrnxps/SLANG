@@ -1,5 +1,5 @@
 from django.contrib import admin
-from chatting.models import Member, Team
+from chatting.models import Membership, Team
 
-admin.site.register(Member)
+admin.site.register(Membership)
 admin.site.register(Team)
