@@ -11,7 +11,7 @@ class Member(models.Model):
         return self.m_id
     
 class Team(models.Model):
-    t_name = models.CharField(max_length = 20, unique = true)
+    t_name = models.CharField(max_length = 20, unique = True)
     m_id = models.ManyToManyField(Member)
     
     def __str__(self):
