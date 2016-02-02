@@ -4,7 +4,7 @@ from django.db import models
 
 class Member(models.Model):
     m_id = models.CharField(max_length = 10, unique = True)
-    m_mail = models.EmailField
+    m_mail = models.EmailField(max_length =70)
     m_pass = models.CharField(max_length = 10)
     
     def __str__(self):
