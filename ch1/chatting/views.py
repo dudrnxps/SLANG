@@ -2,18 +2,19 @@ from django.shortcuts import get_object_or_404,render
 from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView, View
+from django.views.generic.edit import FormView
 from chatting.models import Membership, Team, File
-# Create your views here.
+from chatting.forms import SignupForm
 
-class Signup(View):
-    def get(self,request):
-            return render(request,'chatting/Signup.html')
+# Create your views here.
+class Signup(FormView):
+    form_class = SignupForm
+    success_url = "/"
+    template_name = 'chatting/Signup.html'
     
-    def post(self,request):
-        form=(request.POST)
-        if form.is_valid():
-            membership.mem_username=request.username
-            membership.mem_mail=request.email
-            membership.mem_pass=request.password
-            membership.save()
-            return HttpResponseRedirect(reverse('chatting:index',args=()))
+    def form_valid(self,form):
+        self.mem_username=self.request.POST['username']
+        self.mem_pass=self.request.POST['password']
+        self.mem_mail=self.request.POST['email']
+        return super(Signup,self).form_valid(form)
+   
