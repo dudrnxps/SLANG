@@ -12,9 +12,13 @@ class Signup(FormView):
     success_url = "/"
     template_name = 'chatting/Signup.html'
     
-    def form_valid(self,form):
-        self.mem_username=self.request.POST['username']
-        self.mem_pass=self.request.POST['password']
-        self.mem_mail=self.request.POST['email']
-        return super(Signup,self).form_valid(form)
+    def post(self,request):
+        mem_username = request.POST['username']
+        mem_mail = request.POST['email']
+        mem_pass = request.POST['password']
+        membership = Membership(mem_username=mem_username,mem_mail=mem_mail,mem_pass=mem_pass)
+        membership.save()
+        
+        return HttpResponseRedirect(reverse('slang:Signup'));
+
    
