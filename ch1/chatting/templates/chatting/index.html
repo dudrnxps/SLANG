@@ -33,6 +33,9 @@
     function left(){
             $('#left-but').trigger('mouseup');  
         }
+        function right(){
+            $('#right-but').trigger('mouseup');  
+        }
     </script>
  <style>
      iframe{
@@ -47,15 +50,15 @@
             <!-- All images with class of "cloudcarousel" will be turned into carousel items -->
             <!-- You can place links around these images -->
            
-              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:Login' %}" style="border-radius:50px 50px;" frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
+              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:login' %}" style="border-radius:50px 50px;" frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
               </iframe>
               <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:Signup' %}" style="border-radius:50px 50px;" frameborder="1" scrolling="no" marginheight="10" marginwidth="10">
               </iframe>
-              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:Login' %}" style="border-radius:50px 50px; " frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
+              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:teamEnter' %}" style="border-radius:50px 50px; " frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
               </iframe>
-              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:Login' %}" style="border-radius:50px 50px; " frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
+              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:teamEnter' %}" style="border-radius:50px 50px; " frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
               </iframe>
-              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:Login' %}" style="border-radius:50px 50px;" frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
+              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:teamCreate' %}" style="border-radius:50px 50px;" frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
               </iframe>
         </div>
         

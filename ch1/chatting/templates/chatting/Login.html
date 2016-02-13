@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
-<body style="background-color:red">
-    <form action="{% url 'slang:Login' %}" method="post">
-        <input type="text" size="30" placeholder="ID">
-        <input type="password" size="30" placeholder="PW">
-        <button type="submit" >Login</button>
+
+<body>
+   
+   {% if login_form.errors %}
+<p>ID나 비밀번호가 일치하지 않습니다.</p>
+{% endif %}
+   
+    <form id="signin" method="post" action="{% url 'slang:login' %}">
+        {% csrf_token %}
+        {{login_form.username}}
+        {{login_form.password}}
+        <button name="signin" type="submit">log ins</button>
     </form>
 </body>
 </html>
