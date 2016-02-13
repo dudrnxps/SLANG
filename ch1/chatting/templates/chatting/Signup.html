@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+</head>
+<body>
+    <form action="{% url 'slang:Signup' %}" method="post">
+       {% csrf_token %}
+        {{form.username}}
+        {{form.password}}
+        {{form.email}}
+        <button type="submit">Signup</button>
+    </form>
+</body>
+</html>

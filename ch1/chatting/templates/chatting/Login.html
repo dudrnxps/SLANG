@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body style="background-color:red">
+    <form action="{% url 'slang:Login' %}" method="post">
+        <input type="text" size="30" placeholder="ID">
+        <input type="password" size="30" placeholder="PW">
+        <button type="submit" >Login</button>
+    </form>
+</body>
+</html>
