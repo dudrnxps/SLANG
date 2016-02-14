@@ -1,18 +1,25 @@
-from __future__ import unicode_literals
-
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
 
-class Membership(models.Model):
-    mem_username = models.CharField(max_length = 10)
-    mem_mail = models.EmailField(max_length =70)
-    mem_pass = models.CharField(max_length = 10)
+class Member(AbstractBaseUser):
+    """
+    Custom user class.
+    """
+    username = models.CharField(max_length=30,unique=True,)
+    email = models.EmailField('email address', unique=True, db_index=True)
+    joined = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    
+    USERNAME_FIELD = 'username'
     
     def __str__(self):
-        return self.mem_username
-    
+        return self.username
+
 class Team(models.Model):
     team_name = models.CharField(max_length = 20)
-    mem_username = models.ManyToManyField(Membership)
+    username = models.ManyToManyField(Member)
     
     def __str__(self):
         return self.team_name
@@ -22,7 +29,7 @@ class File(models.Model):
     file_size = models.IntegerField(default = 0)
     file_data = models.CharField(max_length = 30)
     team_id = models.ForeignKey(Team)
-    membership_id = models.ForeignKey(Membership)
+    member_id = models.ForeignKey(Member)
     
     def __str__(self):
         return self.file_name

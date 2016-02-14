@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   {% if user.is_authenticated %}
+    <p>logined</p>
+    {% endif %}
+    <form method="post" action="{% url 'slang:register' %}">
+       {% csrf_token %}
+        <div>
+            {{form.username.label}}
+            {{form.username}}
+        </div>
+        <div>
+            {{form.email.label}}
+            {{form.email}}
+        </div>
+        <div>
+            {{form.password1.label}}
+            {{form.password1}}
+        </div>
+        <div>
+            {{form.password2.label}}
+            {{form.password2}}
+        </div>
+        <button type="submit">register</button>
+    </form>
+</body>
+</html>

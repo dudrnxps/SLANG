@@ -1,35 +1,57 @@
-from django.shortcuts import get_object_or_404,render
-from django.http import HttpResponseRedirect,HttpResponse
-from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render_to_response, redirect
+from django.template import RequestContext
 from django.views.generic import ListView, View, TemplateView
-from django.views.generic.edit import FormView
-from chatting.models import Membership, Team, File
-from chatting.forms import SignupForm,LoginForm
+from django.contrib.auth import login as django_login, authenticate, logout as django_logout
+from django.views.decorators.csrf import csrf_exempt
+from chatting.forms import AuthenticationForm, RegistrationForm
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
-# Create your views here.
-def login_view(request):
-    form = LoginForm(request.POST or None)
-    if request.POST and form.is_valid():
-        membership = form.login(request)
-        if membership:
-            login(request,membership)
-            return HttpResponseRedirect(reverse('slang:signup'))
-    return render(request,'chatting/Login.html',{'login_form':form})
-
-class Signup(FormView):
-    form_class = SignupForm
-    success_url = "/"
-    template_name = 'chatting/Signup.html'
+class Index(TemplateView):
+    template_name = "chatting/index.html"
     
-    def post(self,request):
-        mem_username = request.POST['username']
-        mem_mail = request.POST['email']
-        mem_pass = request.POST['password']
-        membership = Membership(mem_username=mem_username,mem_mail=mem_mail,mem_pass=mem_pass)
-        membership.save()
-        
-        return HttpResponseRedirect(reverse('slang:login'));
+@csrf_exempt
+def login(request):
+    """
+    Log in view
+    """
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = authenticate(username=request.POST['username'], password=request.POST['password'])
+            if user is not None:
+                if user.is_active:
+                    django_login(request, user)
+                    return redirect(reverse('slang:register'))
+    else:
+        form = AuthenticationForm()
+    return render_to_response('chatting/login.html', {
+        'form': form,
+    }, context_instance=RequestContext(request))
+
+
+@csrf_exempt
+def register(request):
+    """
+    User registration view.
+    """
+    if request.method == 'POST':
+        form = RegistrationForm(data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect(reverse('slang:login'))
+    else:
+        form = RegistrationForm()
+    return render_to_response('chatting/register.html', {
+        'form': form,
+    }, context_instance=RequestContext(request))
+
+def logout(request):
+    """
+    Log out view
+    """
+    django_logout(request)
+    return redirect(reverse('slang:register'))
 
 class Team_create(TemplateView):
     template_name = "team/create.html"
@@ -37,7 +59,7 @@ class Team_create(TemplateView):
         name = request.POST['teamName']
         new_team = Team(team_name=name)
         new_team.save()
-        return HttpResponseRedirect('/slang/teamEnter');
+        return redirect(reverse('slang:teamEnter'));
 
 class Team_enter(TemplateView):
     template_name = "team/enter.html"
@@ -52,5 +74,3 @@ class Team_enter(TemplateView):
         
 class Chat(TemplateView):
     template_name = "team/chat.html"
-
-        

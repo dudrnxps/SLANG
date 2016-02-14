@@ -13,11 +13,14 @@
     </script>
 </head>
 <body>
-    <form action="{% url 'slang:Signup' %}" method="post">
+   {% if user.is_authenticated %}
+    <p>tete</p>
+    {% endif %}
+    <form action="{% url 'accounts:register' %}" method="post">
        {% csrf_token %}
-        {{form.username}}
-        {{form.password}}
         {{form.email}}
+        {{form.password1}}
+        {{form.password2}}
         <button type="submit" id="tt">Signup</button>
     </form>  
 </body>

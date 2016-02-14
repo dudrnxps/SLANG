@@ -1,0 +1,2 @@
+from chatting.forms.register import RegistrationForm
+from chatting.forms.authentication import AuthenticationForm

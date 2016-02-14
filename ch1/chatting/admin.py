@@ -1,6 +1,4 @@
 from django.contrib import admin
-from chatting.models import Membership, Team, File
+from chatting.models import Member
 
-admin.site.register(Membership)
-admin.site.register(Team)
-admin.site.register(File)
+admin.site.register(Member)

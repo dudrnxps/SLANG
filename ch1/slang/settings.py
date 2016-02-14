@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'chatting',
 ]
 
@@ -121,3 +122,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL='chatting/index'
+
+
+AUTH_USER_MODEL = 'chatting.Member'
+AUTHENTICATION_BACKENDS = ['chatting.backends.MemberAuthBackend', ]
