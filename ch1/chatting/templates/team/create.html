@@ -9,10 +9,10 @@
     </head>
     <body>
         <div> 
-            <form method="post">
+            <form method="post" disabled>
                 {% csrf_token %}
                 <input type="text" name="teamName" placeholder="team_name"/>
-                <button class="btn btn-primary" name="create">개설</button>
+                <button class="btn btn-primary" name="create" disabled>개설</button>
             </form>
         </div>
     </body>

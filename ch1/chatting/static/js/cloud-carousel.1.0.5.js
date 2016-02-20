@@ -127,6 +127,10 @@
 			return false;
 		});
 		
+        $(options.buttontRight).bind('mouseup',this,function(event){															
+			event.data.rotate(2);	
+			return false;
+		});
 		// You will need this plugin for the mousewheel to work: http://plugins.jquery.com/project/mousewheel
 		if (options.mouseWheel)
 		{
@@ -187,7 +191,11 @@
 			var currentItemIndex = ( this.frontIndex + items.length ) % items.length;
 			if ( items[ currentItemIndex ] === undefined ) { return; }	// Images might not have loaded yet.
 			$(options.titleBox).html( $(items[ currentItemIndex ].image).attr('title'));
-			$(options.altBox).html( $(items[ currentItemIndex ].image).attr('alt'));				
+			$(options.altBox).html( $(items[ currentItemIndex ].image).attr('alt'));	
+            $('iframe').contents().find('form').each(function(){
+                $(this).attr("disabled",true).find('button').attr("disabled",true);
+            });
+            $(items[currentItemIndex].image).contents().find('form').attr("disabled",false).find('button').attr("disabled",false);
 		};
 						
 		this.go = function()

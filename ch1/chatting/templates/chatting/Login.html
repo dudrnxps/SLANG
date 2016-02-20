@@ -4,20 +4,37 @@
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>
+    function checkForm(){
+        var val = $('form[name="LoginForm"]').serialize();
+        $.ajax({
+            type:'POST',
+            data:val,
+            success:function(data){
+                if(data.code == '200'){
+                    $('#error').html('<p>logined</p>');
+                    parent.right();  
+                }
+                else{
+                    $('#error').html('<p>ID나 PW가 일치하지 않습니다.</p>');
+                    var pw=$('input[name="password"]').val("");
+                }
+            }
+        });
+        
+        return false;
+            
+        }
+    /*$(document).ready(function(){
+      $('form').attr("disabled",false).attr("readonly",fasle);
+        });*/
+</script>
 <body>
    
-   {% if login_form.errors %}
-<p>ID나 비밀번호가 일치하지 않습니다.</p>
-{% endif %}
-   
-    <!--<form id="signin" method="post" action="{% url 'slang:login' %}">
-        {% csrf_token %}
-        {{login_form.username}}
-        {{login_form.password}}
-        <button name="signin" type="submit">log ins</button>
-    </form>-->
-    <form class="form-horizontal" name="LoginForm" action="{% url 'slang:login' %}" method="post">
+   <div id="error"></div>
+
+    <form onsubmit="return checkForm()" class="form-horizontal" name="LoginForm" method="post" disabled>
         {% csrf_token %}
         {% if next %}
             <input type="hidden" name="next" value="{{ next }}" />

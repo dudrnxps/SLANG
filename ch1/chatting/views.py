@@ -5,7 +5,8 @@ from django.contrib.auth import login as django_login, authenticate, logout as d
 from django.views.decorators.csrf import csrf_exempt
 from chatting.forms import AuthenticationForm, RegistrationForm
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
+import json
 
 class Index(TemplateView):
     template_name = "chatting/index.html"
@@ -15,14 +16,16 @@ def login(request):
     """
     Log in view
     """
-    if request.method == 'POST':
+    if request.method == 'POST' and request.is_ajax():
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             user = authenticate(username=request.POST['username'], password=request.POST['password'])
             if user is not None:
                 if user.is_active:
                     django_login(request, user)
-                    return redirect(reverse('slang:register'))
+                    return HttpResponse(json.dumps({'code': '200'}), content_type="application/json")
+        else:
+            return HttpResponse(json.dumps({'code': '100'}), content_type="application/json")
     else:
         form = AuthenticationForm()
     return render_to_response('chatting/login.html', {
@@ -74,3 +77,6 @@ class Team_enter(TemplateView):
         
 class Chat(TemplateView):
     template_name = "team/chat.html"
+    
+class Team_selectBtn(TemplateView):
+    template_name = "team/selectBtn.html"

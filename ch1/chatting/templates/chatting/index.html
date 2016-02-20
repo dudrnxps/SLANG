@@ -13,7 +13,10 @@
      
     <script>
     $(document).ready(function(){
-    						  
+        
+        $('.cloudcarousel').wrap('<div class="inWrap"></div>');
+        
+        //$('.inWrap').css({'width':'100%','height':'100%','position':'relative','background-color':'transparent','opacity':'0.5'});
     	// This initialises carousels on the container elements specified, in this case, carousel1.
     	$("#carousel1").CloudCarousel(		
     		{			
@@ -22,6 +25,7 @@
                 mouseWheel:false,
     			buttonLeft: $("#left-but"),
     			buttonRight: $("#right-but"),
+                buttontRight: $('#tRight-but'),
     			altBox: $("#alt-text"),
     			titleBox: $("#title-text"),
                 FPS:100
@@ -31,17 +35,25 @@
     
     });
     function left(){
-            $('#left-but').trigger('mouseup');  
-        }
-        function right(){
-            $('#right-but').trigger('mouseup');  
-        }
+        $('#left-but').trigger('mouseup');  
+    }
+    function right(){
+        $('#right-but').trigger('mouseup');  
+    }
+    function twoRight(){
+        $('#tRight-but').trigger('mouseup');
+    }
+         $('iframe').contents().find('form').each(function(){
+                
+                $(this).attr("disabled",true).find('button').attr("disabled",true);
+            });
     </script>
  <style>
      iframe{
          width:200px;
          height: 200px;
      }
+     
     </style>
 </head>
     <body>
@@ -50,25 +62,36 @@
             <!-- All images with class of "cloudcarousel" will be turned into carousel items -->
             <!-- You can place links around these images -->
            
-              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:login' %}" style="border-radius:50px 50px;" frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
+      
+              <iframe  class="cloudcarousel" name="ifm" src="{% url 'slang:login' %}" style="border-radius:50px 50px;" frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
               </iframe>
+              
+            
               <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:register' %}" style="border-radius:50px 50px;" frameborder="1" scrolling="no" marginheight="10" marginwidth="10">
               </iframe>
-              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:teamEnter' %}" style="border-radius:50px 50px; " frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
+          
+           
+              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:teamCreate' %}" style="border-radius:50px 50px; " frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
               </iframe>
-              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:teamEnter' %}" style="border-radius:50px 50px; " frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
+                 
+              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:teamEnter' %}" style="border-radius:50px 50px; " frameborder="1"  scrolling="no" marginheight="10" marginwidth="10" >
               </iframe>
-              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:teamCreate' %}" style="border-radius:50px 50px;" frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
+                 
+              <iframe class="cloudcarousel" name="ifm" src="{% url 'slang:selectBtn' %}" style="border-radius:50px 50px;" frameborder="1"  scrolling="no" marginheight="10" marginwidth="10">
               </iframe>
+              
         </div>
         
         <!-- Define left and right buttons. -->
-        <input id="left-but"  type="button" value="Left">
-        <input id="right-but" type="button" value="Right">
+        <div style="background-color:#fff">
+            <input id="left-but"   value="Left">
+            <input id="right-but" value="Right">
+            <input id="tRight-but" type="hidden">
+        <div>
 <p id="dd">ddd</p>
         <!-- Define elements to accept the alt and title text from the images. -->
         <p id="title-text"></p>
         <p id="alt-text"></p>
-      
+      <div id="allDiv"></div>
     </body>
 </html>
