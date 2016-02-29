@@ -1,19 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-	   <meta charset="utf-8">
-	   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	   <meta name="viewport" content="width=device-width, initial-scale=1">
-	   <title>slang</title>
 
-    </head>
-    <body>
-        <div>
-            <form method="post" >
-                {% csrf_token %}
-                <input type="text" name="teamName" placeholder="team_name"/>
-                <button name="enter" >입장</button>
-            </form>
-        </div>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>slang</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<script>
+     function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+    $(function() {
+        
+       
+
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+    });
+
+    function checkTeam() {
+        var val = $('form[name="teamForm"]').serialize();
+        $.ajax({
+            type: 'POST',
+            data: val,
+            success: function(data) {
+                if (data.code == '200') {
+                    alert(1);
+                    var teamName = $('input[name="teamName"]').val();
+                    window.parent.location.href = '/slang/team/' + teamName;
+
+                } else {
+                    alert('팀이 존재하지 않습니다.');
+                }
+            }
+        });
+
+        return false;
+
+    }
+
+</script>
+
+<body>
+    <div style=" text-align:center; top:100px; position:relative;">
+        <h2 style="color:white;">enter</h2>
+    </div>
+    <div>
+        <form method="post" name="teamForm" onsubmit="return checkTeam()">
+            {% csrf_token %}
+
+            <input type="text" name="teamName" placeholder="team_name" />
+            <button name="enter">입장</button>
+        </form>
+    </div>
+</body>
+
 </html>

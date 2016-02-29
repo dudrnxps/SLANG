@@ -33,7 +33,7 @@
 <body>
    
    <div id="error"></div>
-
+ 
     <form onsubmit="return checkForm()" class="form-horizontal" name="LoginForm" method="post" disabled>
         {% csrf_token %}
         {% if next %}
@@ -57,6 +57,6 @@
             </div>
         </div>
         </form>
-
+       
 </body>
 </html>

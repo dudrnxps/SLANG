@@ -8,8 +8,11 @@
 	   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <div> 
-            <form method="post" disabled>
+        <div style=" text-align:center; top:100px; position:relative;">
+        <h2 style="color:white;">create</h2>
+    </div>
+        <div > 
+            <form method="post" disabled >
                 {% csrf_token %}
                 <input type="text" name="teamName" placeholder="team_name"/>
                 <button class="btn btn-primary" name="create" disabled>개설</button>

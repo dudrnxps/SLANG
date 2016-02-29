@@ -183,7 +183,7 @@
 		});
 		container.onselectstart = function () { return false; };		// For IE.
 
-		this.innerWrapper = $(container).wrapInner('<div style="position:absolute;width:100%;height:100%;"/>').children()[0];
+		this.innerWrapper = $(container).wrapInner('<div style="position:absolute;width:100%;height:100%;top:-60px;"/>').children()[0];
 	
 		// Shows the text from the front most item.
 		this.showFrontText = function()
@@ -195,7 +195,11 @@
             $('iframe').contents().find('form').each(function(){
                 $(this).attr("disabled",true).find('button').attr("disabled",true);
             });
-            $(items[currentItemIndex].image).contents().find('form').attr("disabled",false).find('button').attr("disabled",false);
+            /*$('iframe').contents().find('body').each(function(){
+                $(this).css({'position':'absolute','width':'100%','height':'100%','background-color':'#FFC90F','opacity':'0.9'});
+            });*/
+           
+         $(items[currentItemIndex].image).contents().find('body').css('background-color','transparent'); $(items[currentItemIndex].image).contents().find('form').attr("disabled",false).find('button').attr("disabled",false);
 		};
 						
 		this.go = function()

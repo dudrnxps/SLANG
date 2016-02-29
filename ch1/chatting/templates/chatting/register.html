@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
-<body>
-   {% if user.is_authenticated %}
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+     
+</style>
+<body style="position:absolute; width:100%; height:100%; opacity:0.8;">
+    <!--{% if user.is_authenticated %}
     <p>logined</p>
-    {% endif %}
+    {% endif %}-->
+    
+    <div style=" text-align:center; top:100px; position:relative;">
+        <h2 style="color:white;">Signup</h2>
+    </div>
     <form method="post" action="{% url 'slang:register' %}" disabled>
        {% csrf_token %}
         <div>

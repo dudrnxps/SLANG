@@ -8,6 +8,6 @@ urlpatterns = patterns('',
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^selectBtn/$',views.Team_selectBtn.as_view(),name='selectBtn'),
     url(r'^teamCreate/$',views.Team_create.as_view(),name='teamCreate'),
-    url(r'^teamEnter/$',views.Team_enter.as_view(), name='teamEnter'),
+    url(r'^teamEnter/$',views.Team_enter, name='teamEnter'),
     url(r'^team/(?P<team_name>\w+)/$',views.Chat.as_view(),name='team'),
 )
